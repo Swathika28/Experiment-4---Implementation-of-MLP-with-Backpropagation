@@ -117,8 +117,120 @@ Normalize our dataset.
 
 8. Finally, call the functions confusion_matrix(), and the classification_report() in order to evaluate the performance of our classifier.
 
-## PROGRAM 
+## PROGRAM :
+NAME : SWATHIKA G
+ REG NO : 212221230113
 
-## OUTPUT 
+## Importing Libraries
 
-## RESULT
+```
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder,StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+```
+## Reading Dataset
+```
+df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/Semester 3/Neural Networks/Exp_4/IRIS.csv")
+df
+```
+## Assiging X and Y values
+```
+# Takes first 4 columns and assign them to variable "X"
+# X = df.iloc[:,:4]
+X = df[['sepal_length', 'sepal_width', 'petal_length', 'petal_width']]
+
+# Takes first 5th columns and assign them to variable "Y". Object dtype refers to strings.
+# y = df.select_dtypes(include=[object])  
+y = df['species']
+
+```
+## First five values of X and Y
+```
+X.head()
+
+y.head()
+```
+## Unique values in Y
+```
+print(y.unique())
+```
+
+## Transforming Categorical into numerical values for Y
+
+```
+le = LabelEncoder()
+y = le.fit_transform(y)
+
+y
+```
+## Splitting Dataset for Training and Testing
+
+```
+# 80% - training data and 20% - test data)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
+
+```
+## Normalizing X values
+```
+# Feature scaling
+scaler = StandardScaler()  
+scaler.fit(X_train)
+
+X_train = scaler.transform(X_train)  
+X_test = scaler.transform(X_test)
+```
+
+## Creating MLP and classifing
+
+```
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=1000)  
+mlp.fit(X_train, y_train)  
+predictions = mlp.predict(X_test) 
+
+```
+## Predictions
+
+```
+print(predictions)
+
+```
+## Accuracy
+```
+accuracy_score(y_test,predictions)
+```
+
+## Confusion Matrix
+```
+print(confusion_matrix(y_test,predictions))
+```
+
+## Classification Report
+```
+print(classification_report(y_test,predictions))
+```
+
+
+# OUTPUT :
+## Reading Dataset
+![OUTPUT-1](o1.png)
+## First five values of X
+![OUTPUT-2](o2.png)
+## First five values of Y
+![OUTPUT-3](o3.png)
+
+
+## Predictions
+![OUTPUT-6](o4.png)
+
+## Confusion Matrix
+![OUTPUT-8](o5.png)
+
+## Classification Report
+![OUTPUT-9](o6.png)
+
+
+## RESULT :
+Thus a Multilayer Perceptron with Backpropagation is implemented for Multi classification
